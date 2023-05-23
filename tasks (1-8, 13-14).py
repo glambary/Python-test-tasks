@@ -1,12 +1,13 @@
 def task1():
     """1. Посчитайте сумму всех четных и нечетных чисел в интервале от 100 до 1000."""
-    even = odd = 0
+    odd = even = 0
     for x in range(100, 1000+1):
         if x % 2:
             odd += x
         else:
             even += x
     print(f'Задача №1. Сумма нечётных чисел = {odd}. Сумма чётных чисел = {even}.')
+    return odd, even
 
 
 def task2(date: str):
@@ -109,22 +110,41 @@ def task6(lst: list) -> dict:
         0
     )
 
-    res = {}
+    result = {}
     for product in lst:
         key, n, price = product
-        res[key] = res.get(key, 0) + price * n
+        result[key] = result.get(key, 0) + price * n
 
-    print(f'Задача №6 {res}. Общая сумма заказа = {sum_order}')
-    return res
-
-
-def task14(lst):
-    res = sorted(lst, key=lambda x: (x[0], x[1] * x[2]))
-    print(res)
-    return res
+    print(f'Задача №6 {result}. Общая сумма заказа = {sum_order}')
+    return result
 
 
-def task15():
+def task14(lst: list) -> list:
+    """
+    14. Отсортируйте список из задачи 6 по: товару, по сумме в строке (количество*цену).
+    Используйте для сортировки лямда функцию.
+    """
+    result = sorted(lst, key=lambda x: (x[0], x[1] * x[2]))
+    print('Задача №14', result)
+    return result
+
+
+def task15(date: str, lst_of_products: list) -> list:
+    def check_good(by_controller: int) -> list:
+        if by_controller == 1:
+            a, b = 1000, 1100
+        elif by_controller == 2:
+            a, b = 950, 1050
+        else:
+            raise ValueError('check the value of the variable "by_controller"')
+        return [product for product in lst_of_products if a <= product <= b]
+
+    day, _, _ = date.split('.')
+    controller = 1 if (int(day) % 2 == 0) else 2
+
+    result = check_good(controller)
+    print('Задача №15', result)
+    return result
 
 
 if __name__ == '__main__':
@@ -137,3 +157,5 @@ if __name__ == '__main__':
     task5()
     task6(lst)
     task14(lst)
+    task15('10.05.2023', [1050, 1000, 975, 1125, 700, 950, 1100])
+    task15('11.05.2023', [1050, 1000, 975, 1125, 700, 950, 1100])
