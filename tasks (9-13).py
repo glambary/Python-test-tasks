@@ -3,17 +3,17 @@ from datetime import datetime, date
 
 class Task9:
     # 9. Создайте класс. Пусть в нем будут поля Фамилия, Имя, Год рождения.
-    def __init__(self, lastname: str, name: str, patronymic: str, date_of_birth: str):
+    def __init__(self, lastname: str, name: str, patronymic: str, date_of_birth: str) -> None:
         self.lastname = lastname
         self.name = name
         self.patronymic = patronymic
         self.date_of_birth = date_of_birth
 
-    def get_full_name(self):
+    def get_full_name(self) -> str:
         # 10. Создайте метод, который выводит ФИО.
         return f'{self.lastname} {self.name} {self.patronymic}'
 
-    def get_age(self):
+    def get_age(self) -> int:
         # 11. Создайте метод, который вычисляет возраст в годах.
         today = date.today()
         date_of_birth = datetime.strptime(self.date_of_birth, '%d.%m.%Y').date()
@@ -25,12 +25,12 @@ class Task9:
 class Task12(Task9):
     # 12. Создайте класс - наследник вашего первого класса. Перекройте в нём метод,
     # вычисляющий возраст в годах на метод, который вычисляет возраст в днях.
-    def get_age(self):
+    def get_age(self) -> int:
         today = date.today()
         date_of_birth = datetime.strptime(self.date_of_birth, '%d.%m.%Y').date()
         return (today - date_of_birth).days
 
-    def __tag_decorator(tag):
+    def __tag_decorator(tag='strong'):
         # 13. Создайте декоратор для метода, который выводит ФИО. Пусть новый метод
         # выводит ФИО, заключенное в теги <strong>.
         def decorator(func):
@@ -39,7 +39,7 @@ class Task12(Task9):
             return wrapper
         return decorator
 
-    @__tag_decorator('strong')
+    @__tag_decorator()
     def get_full_name(self):
         return super().get_full_name()
 
@@ -58,5 +58,3 @@ task13 = KhSY_12.get_full_name()
 
 print(f'Задача №12. {task12}')
 print(f'Задача №13. {task13}')
-
-
